@@ -11,6 +11,7 @@ var gameState = PLAY
 var gameOver,gameOverimg
 var restart,restartimg
 var jump
+var camera;
 
 function preload() {
   trexRunning = loadAnimation("trex1.png","trex3.png","trex4.png"); 
@@ -39,6 +40,7 @@ function setup() {
   trex = createSprite(50,180,20,20);
   trex.addAnimation("trex",trexRunning)
   trex.addAnimation("collided",trexCollided)
+  trex.velocityX = 1;
   trex.scale = 0.5;
   
   ground = createSprite(200,180,400,10);
@@ -58,6 +60,9 @@ function setup() {
   restart.addImage("restart",restartimg);
   restart.visible = false;
   restart.scale = 0.5;
+
+  camera.x = trex.x;
+  camera.y = trex.y;
 }
 
 function draw() {
@@ -100,6 +105,7 @@ function draw() {
   else if(gameState === END)
   {
     trex.velocityY = 0;
+    trex.velocityX = 0;
     ground.velocityX = 0;
     ObstacleGroup.setVelocityXEach(0);
     CloudGroup.setVelocityXEach(0);
